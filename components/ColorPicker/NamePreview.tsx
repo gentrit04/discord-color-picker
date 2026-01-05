@@ -1,9 +1,9 @@
-interface RolePreviewProps {
+interface NamePreviewProps {
   name: string;
   color: string;
 }
 
-function NamePreview({ name, color }: RolePreviewProps) {
+function NamePreview({ name, color }: NamePreviewProps) {
   const isGradient = color.startsWith("linear-gradient");
 
   const getGradientColors = (gradient: string) => {
