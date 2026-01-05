@@ -1,12 +1,20 @@
 "use client";
-import { Palette, PersonStanding, Settings, Shuffle } from "lucide-react";
-import { useState } from "react";
+import {
+  ImagePlus,
+  Palette,
+  PersonStanding,
+  Settings,
+  Shuffle,
+} from "lucide-react";
+import { useRef, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 
 interface ColorSelectorProps {
   name: string;
+  image: string;
   onNameChange: (name: string) => void;
   onColorChange: (color: string) => void;
+  onImageChange: (image: string) => void;
 }
 
 type ColorType = "palette" | "custom" | "gradient";
@@ -42,13 +50,17 @@ const discordColors = [
 
 function ColorSelector({
   name,
+  image,
   onNameChange,
   onColorChange,
+  onImageChange,
 }: ColorSelectorProps) {
   const [activeTab, setActiveTab] = useState<ColorType>("palette");
   const [gradientColor1, setGradientColor1] = useState("#5865F2");
   const [gradientColor2, setGradientColor2] = useState("#EB459E");
   const [customColor, setCustomColor] = useState("#5865F2");
+
+  const imageRef = useRef<HTMLInputElement>(null);
 
   const tabs = [
     { id: "palette" as const, label: "Discord Palette" },
@@ -96,6 +108,18 @@ function ColorSelector({
     onColorChange(color);
   };
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (image) URL.revokeObjectURL(image);
+    const file = e.target.files?.[0];
+    if (file) onImageChange(URL.createObjectURL(file));
+  };
+
+  const removeImage = () => {
+    if (image) URL.revokeObjectURL(image);
+    onImageChange("");
+    if (imageRef.current) imageRef.current.value = "";
+  };
+
   return (
     <div className="border-border bg-background-tertiary flex flex-col gap-6 rounded-lg border p-4">
       <div>
@@ -120,6 +144,33 @@ function ColorSelector({
           placeholder="Enter name..."
           className="bg-card focus:ring-accent rounded-lg p-2 transition-colors outline-none focus:ring-2"
         />
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <label className="flex items-center gap-1 text-sm font-medium">
+          <ImagePlus />
+          Discord Profile Picture
+        </label>
+        <span className="text-text-muted text-sm italic">
+          Uploaded images are temporary and only for preview
+        </span>
+        <input
+          type="file"
+          name="pfp"
+          accept="image/*"
+          onChange={handleImageChange}
+          ref={imageRef}
+          className="bg-card focus:ring-accent rounded-lg p-2 transition-colors outline-none focus:ring-2"
+        />
+        {image && (
+          <button
+            type="button"
+            className="bg-background rounded-lg px-2 py-1.5 text-sm transition-colors hover:bg-red-800 sm:text-base"
+            onClick={removeImage}
+          >
+            Remove
+          </button>
+        )}
       </div>
 
       <div className="flex flex-col gap-3">

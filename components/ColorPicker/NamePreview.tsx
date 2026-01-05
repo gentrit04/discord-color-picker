@@ -1,12 +1,14 @@
 import { Moon, Sun } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 
 interface NamePreviewProps {
   name: string;
   color: string;
+  image: string;
 }
 
-function NamePreview({ name, color }: NamePreviewProps) {
+function NamePreview({ name, color, image }: NamePreviewProps) {
   const [themeMode, setThemeMode] = useState(true); // by default dark mode = true
   const isGradient = color.startsWith("linear-gradient");
 
@@ -41,7 +43,20 @@ function NamePreview({ name, color }: NamePreviewProps) {
         <div
           className={`${themeMode ? "bg-card" : "bg-white"} flex items-center gap-3 rounded-lg px-3 py-2`}
         >
-          <div className="bg-accent h-8 w-8 rounded-full" />
+          <div className="h-8 w-8 overflow-hidden rounded-full">
+            {image ? (
+              <Image
+                src={image}
+                height={32}
+                width={32}
+                alt="profile picture"
+                className="h-full w-full object-cover"
+                unoptimized
+              />
+            ) : (
+              <div className="bg-accent h-full w-full" />
+            )}
+          </div>
           <span
             className={`font-medium ${
               isGradient ? "bg-clip-text text-transparent" : ""
@@ -64,7 +79,20 @@ function NamePreview({ name, color }: NamePreviewProps) {
             className={`${themeMode ? "bg-card" : "bg-white"} flex flex-col items-start gap-3 rounded-lg px-3 py-2`}
           >
             <div className="flex items-center gap-3">
-              <div className="bg-accent h-8 w-8 rounded-full" />
+              <div className="h-8 w-8 overflow-hidden rounded-full">
+                {image ? (
+                  <Image
+                    src={image}
+                    height={32}
+                    width={32}
+                    alt="profile picture"
+                    className="h-full w-full object-cover"
+                    unoptimized
+                  />
+                ) : (
+                  <div className="bg-accent h-full w-full" />
+                )}
+              </div>
               <span
                 className="animate-text-gradient bg-clip-text font-medium text-transparent drop-shadow-[0_0_4px_rgba(255,255,255,0.5)]"
                 style={
