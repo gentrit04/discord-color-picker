@@ -1,9 +1,13 @@
+import { Moon, Sun } from "lucide-react";
+import { useState } from "react";
+
 interface NamePreviewProps {
   name: string;
   color: string;
 }
 
 function NamePreview({ name, color }: NamePreviewProps) {
+  const [themeMode, setThemeMode] = useState(true); // by default dark mode = true
   const isGradient = color.startsWith("linear-gradient");
 
   const getGradientColors = (gradient: string) => {
@@ -15,8 +19,16 @@ function NamePreview({ name, color }: NamePreviewProps) {
 
   return (
     <div className="border-border bg-background-tertiary flex flex-col gap-6 rounded-lg border p-6">
-      <div>
-        <h2 className="text-xl font-semibold">Preview</h2>
+      <div className="space-y-4 sm:space-y-2">
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-semibold">Preview</h2>
+          <button
+            className="hover:bg-card rounded-full p-1.5"
+            onClick={() => setThemeMode(!themeMode)}
+          >
+            {themeMode ? <Moon /> : <Sun />}
+          </button>
+        </div>
         <p className="text-text-muted text-sm">
           name color preview (may not be 100% accurate)
           <br /> discord can be weird :&#41;
@@ -26,7 +38,9 @@ function NamePreview({ name, color }: NamePreviewProps) {
         <span className="text-text-muted text-sm font-semibold uppercase">
           Members
         </span>
-        <div className="bg-card flex items-center gap-3 rounded-lg px-3 py-2">
+        <div
+          className={`${themeMode ? "bg-card" : "bg-white"} flex items-center gap-3 rounded-lg px-3 py-2`}
+        >
           <div className="bg-accent h-8 w-8 rounded-full" />
           <span
             className={`font-medium ${
@@ -46,7 +60,9 @@ function NamePreview({ name, color }: NamePreviewProps) {
           </span>
         </div>
         {isGradient && (
-          <div className="bg-card flex flex-col items-start gap-3 rounded-lg px-3 py-2">
+          <div
+            className={`${themeMode ? "bg-card" : "bg-white"} flex flex-col items-start gap-3 rounded-lg px-3 py-2`}
+          >
             <div className="flex items-center gap-3">
               <div className="bg-accent h-8 w-8 rounded-full" />
               <span
@@ -70,7 +86,9 @@ function NamePreview({ name, color }: NamePreviewProps) {
                 {name || "Name"}
               </span>
             </div>
-            <span className="text-sm font-extralight italic">
+            <span
+              className={`${themeMode ? "" : "text-black"} text-sm font-extralight italic`}
+            >
               The hover effect is only available on desktop, while on mobile
               there is no hover effect and discord shows only the static
               gradient
