@@ -35,7 +35,7 @@ function NamePreview({ name, color }: NamePreviewProps) {
             style={
               isGradient && gradientColors.length === 2
                 ? {
-                    backgroundImage: `linear-gradient(to right, ${gradientColors[0]}, ${gradientColors[1]})`,
+                    backgroundImage: `linear-gradient(90deg, ${gradientColors[0]}, ${gradientColors[1]})`,
                   }
                 : !isGradient
                   ? { color: color }
@@ -45,6 +45,38 @@ function NamePreview({ name, color }: NamePreviewProps) {
             {name || "Name"}
           </span>
         </div>
+        {isGradient && (
+          <div className="bg-card flex flex-col items-start gap-3 rounded-lg px-3 py-2">
+            <div className="flex items-center gap-3">
+              <div className="bg-accent h-8 w-8 rounded-full" />
+              <span
+                className="animate-text-gradient bg-clip-text font-medium text-transparent drop-shadow-[0_0_4px_rgba(255,255,255,0.5)]"
+                style={
+                  isGradient && gradientColors.length === 2
+                    ? {
+                        backgroundImage: `linear-gradient(
+                    90deg,
+                    ${gradientColors[0]} 0%,
+                    ${gradientColors[1]} 50%,
+                    ${gradientColors[0]} 100%
+                    )`,
+                        backgroundSize: "200% 100%",
+                      }
+                    : !isGradient
+                      ? { color: color }
+                      : undefined
+                }
+              >
+                {name || "Name"}
+              </span>
+            </div>
+            <span className="text-sm font-extralight italic">
+              The hover effect is only available on desktop, while on mobile
+              there is no hover effect and discord shows only the static
+              gradient
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

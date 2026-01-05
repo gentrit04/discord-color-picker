@@ -28,6 +28,19 @@
   --color-border: var(--border);
 }
 
+@theme {
+  --animate-text-gradient: text-gradient 3s linear infinite;
+
+  @keyframes text-gradient {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
