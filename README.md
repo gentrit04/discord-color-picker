@@ -1,6 +1,6 @@
 # Discord Color Picker
 
-This helps you preview your name color before changing it. I made it because of gradient colors and wanted a way to check them before applying.
+This helps you preview your name color before changing it. I made it because of the gradient color mode (a Discord server perk) and wanted a way to check the result before applying it, since the mobile app doesn’t show a preview
 
 ![App Screenshot](/public/website.png)
 
@@ -16,6 +16,7 @@ This helps you preview your name color before changing it. I made it because of 
 - Responsive and mobile-friendly interface
 - Random color and gradient generator
 - Hex color input support
+- Upload profile picture
 
 ## Run Locally
 
