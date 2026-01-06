@@ -29,14 +29,15 @@
 }
 
 @theme {
-  --animate-text-gradient: text-gradient 3s linear infinite;
+  --animate-text-gradient: text-gradient 4s linear infinite;
 
+  /* this should be the correct keyframe for the animation text gradient, i don't knowww */
   @keyframes text-gradient {
     0% {
-      background-position: -200% 0;
+      background-position: 200% 0;
     }
     100% {
-      background-position: 200% 0;
+      background-position: -200% 0;
     }
   }
 }

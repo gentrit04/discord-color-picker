@@ -104,7 +104,7 @@ function NamePreview({ name, color, image }: NamePreviewProps) {
                     ${gradientColors[1]} 50%,
                     ${gradientColors[0]} 100%
                     )`,
-                        backgroundSize: "200% 100%",
+                        backgroundSize: "400% 100%",
                       }
                     : !isGradient
                       ? { color: color }
